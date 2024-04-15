@@ -13,6 +13,7 @@ export default function Simon() {
   const [clickCounter, setClickCounter] = useState<number>(0)
   const [disabledButtons, setDisableButtons] = useState<boolean>(false)
   const [loseGame, setLoseGame] = useState<boolean>(false)
+  const [isPlaying, setIsPlaying] = useState<boolean>(false)
   
   useEffect(() => {
     getPattern()
@@ -46,6 +47,7 @@ export default function Simon() {
   }
 
   const startGame = () => {
+    setIsPlaying(true)
     setDisableButtons(true)
     playPattern()
   }
@@ -66,25 +68,17 @@ export default function Simon() {
   useEffect(() => {
     if(selectColor === undefined) return
     if(lengthAnswer < pattern.length) {
-      console.log(selectedColor, lengthAnswer, pattern.length, pattern[lengthAnswer - 1])
-      console.log(pattern)
-      if(selectedColor == pattern[lengthAnswer - 1]) {
-        console.log('bien')
-      } else {
+      if(selectedColor !== pattern[lengthAnswer - 1]) {
         setLoseGame(true)
-        console.log('mal')
+        setIsPlaying(false)
       }
     } else {
-      console.log(selectedColor, pattern[lengthAnswer - 1], pattern)
-      if(selectedColor == pattern[lengthAnswer - 1]) {
-        console.log('bien')
-      } else {
+      if(selectedColor !== pattern[lengthAnswer - 1]) {
         setLoseGame(true)
-        console.log('mal')
+        setIsPlaying(false)
       }
       setLengthAnswer(0)
       getPattern()
-      console.log('reset')
     }
   }, [clickCounter])
 
