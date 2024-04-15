@@ -1,3 +1,7 @@
+.container {
+  position: relative;
+}
+
 .lightButton {
   width: 15rem;
   height: 15rem;
@@ -5,13 +9,19 @@
   cursor: pointer;
   opacity: 90%;
   transition: all ease-out 50ms;
-  box-shadow: 2px -8px 9px 12px rgba(0, 0, 0, 0.65) inset;
+  box-shadow: 0.125rem -0.5rem 0.562rem 0.75rem rgba(0, 0, 0, 0.65) inset;
 }
 
 .lightButton:active {
   filter: saturate(150%);
   opacity: 100%;
-  box-shadow: -4px 2px 6px 8px rgba(0, 0, 0, 0.65) inset;
+  box-shadow: -0.25rem 0.125rem 0.375rem 0.5rem rgba(0, 0, 0, 0.65) inset;
+}
+
+.active {
+  filter: saturate(150%);
+  opacity: 100%;
+  box-shadow: -0.25rem 0.125rem 0.375rem 0.5rem rgba(0, 0, 0, 0.65) inset;
 }
 
 .startButton {
@@ -20,19 +30,19 @@
   height: 8rem;
   background-color: rgb(226 232 240);
   border-radius: 100%;
-  border: 8px solid rgb(209 213 219);
+  border: 0.5rem solid rgb(209 213 219);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  box-shadow: 2px 0px 8px 6px rgba(0, 0, 0, 0.65);
+  box-shadow: 0.125rem 0 0.5rem 0.375rem rgba(0, 0, 0, 0.65);
   transition: all ease-in-out 200ms;
 }
 
 .startButton:active {
   filter: saturate(150%);
-  border: 10px solid rgb(243, 244, 246);
-  box-shadow: 2px -2px 8px 4px rgba(0, 0, 0, 0.65);
+  border: 0.625rem solid rgb(243, 244, 246);
+  box-shadow: 0.125rem -0.125rem 0.5rem 0.25rem rgba(0, 0, 0, 0.65);
 }
 
 .startText {
@@ -43,5 +53,48 @@
   font-weight: bold;
   font-size: 1.5rem;
   line-height: 2rem;
+  user-select: none;
   color: rgb(3, 7, 18);
+}
+
+@media (max-width: 520px) {
+  .container {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  .lightButton {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .startButton {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .startText {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .container {
+    width: 18rem;
+    height: 18rem;
+  }
+
+  .lightButton {
+    width: 9rem;
+    height: 9rem;
+  }
+
+  .startButton {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .startText {
+    font-size: 1rem;
+  }
 }
