@@ -35,14 +35,28 @@
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  box-shadow: 0.125rem 0 0.5rem 0.375rem rgba(0, 0, 0, 0.65);
+  box-shadow: 0rem 0.125rem 0.25rem 0.125rem rgba(0, 0, 0, 0.25) inset;
   transition: all ease-in-out 200ms;
 }
 
+.shadowBorder {
+  position: absolute;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0.125rem 0 0.5rem 0.375rem rgba(0, 0, 0, 0.65);
+}
+
 .startButton:active {
-  filter: saturate(150%);
-  border: 0.625rem solid rgb(243, 244, 246);
-  box-shadow: 0.125rem -0.125rem 0.5rem 0.25rem rgba(0, 0, 0, 0.65);
+  box-shadow: 0rem 0.125rem 0.25rem 0.375rem rgba(0, 0, 0, 0.25) inset;
+}
+
+.loseButton {
+  background-color: rgb(226, 158, 158);
+  border-color: rgb(247, 217, 217);
 }
 
 .startText {
@@ -55,6 +69,11 @@
   line-height: 2rem;
   user-select: none;
   color: rgb(3, 7, 18);
+}
+
+.startText:active {
+  font-size: 1.4rem;
+  transition: all ease-in-out 200ms;
 }
 
 @media (max-width: 520px) {
@@ -73,8 +92,17 @@
     height: 6rem;
   }
 
+  .shadowBorder {
+    width: 6rem;
+    height: 6rem;
+  }
+
   .startText {
-    font-size: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .startText:active {
+    font-size: 0.8rem;
   }
 }
 
@@ -94,7 +122,16 @@
     height: 5rem;
   }
 
+  .shadowBorder {
+    width: 5rem;
+    height: 5rem;
+  }
+
   .startText {
-    font-size: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .startText:active {
+    font-size: 0.75rem;
   }
 }

@@ -1,12 +1,10 @@
 'use client'
 
+import usePattern from '../hooks/usePattern'
 import styles from './Simon.module.css'
-import { useEffect, useState } from 'react'
-
-type PatternNumbers = 1 | 2 | 3 | 4
 
 export default function Simon() {
-  const [pattern, setPattern] = useState<PatternNumbers[]>([])
+/*   const [pattern, setPattern] = useState<PatternNumbers[]>([])
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const [lengthAnswer, setLengthAnswer] = useState<number>(0)
   const [selectedColor, setSelectedColor] = useState<PatternNumbers>()
@@ -14,83 +12,8 @@ export default function Simon() {
   const [disabledButtons, setDisableButtons] = useState<boolean>(false)
   const [loseGame, setLoseGame] = useState<boolean>(false)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
-  
-  useEffect(() => {
-    getPattern()
-  }, [])
-
-  useEffect(() => {
-    if(pattern.length > 1)
-    setTimeout(() => {
-      startGame()
-    }, 1000);
-  }, [pattern])
-
-  const getPattern = () => {
-    const nextStep = generateNextStep()
-    setPattern([...pattern, nextStep])
-  }
-
-  const generateNextStep = () => {
-    const random = Math.floor(Math.random() * 4) + 1
-    return random as PatternNumbers;
-  }
-
-  const startGame = () => {
-    if(loseGame) {
-      setLoseGame(false)
-      setIsPlaying(false)
-    } else {
-      setIsPlaying(true)
-      setDisableButtons(true)
-      setTimeout(() => {
-        playPattern()
-      }, 700)
-    }
-  }
-
-  const playPattern = (index = 0) => {
-    if(index < pattern.length && loseGame === false) {
-      setActiveIndex(pattern[index])
-      setTimeout(() => {
-        setActiveIndex(null)
-        setTimeout(() => {
-          playPattern(index + 1)
-        }, 500)
-      }, 500);
-    }
-    setDisableButtons(false)
-  }
-
-  useEffect(() => {
-    if(selectColor === undefined) return
-    if(lengthAnswer < pattern.length) {
-      if(selectedColor !== pattern[lengthAnswer - 1]) {
-        setLoseGame(true)
-        setIsPlaying(false)
-      }
-    } else {
-      if(selectedColor !== pattern[lengthAnswer - 1]) {
-        setLoseGame(true)
-        setIsPlaying(false)
-        setLengthAnswer(0)
-        return;
-      } else {
-        setLengthAnswer(0)
-        getPattern()
-      }
-    }
-  }, [clickCounter])
-
-  const selectColor = (userSelectedColor: PatternNumbers) => {
-    setLengthAnswer((prev) => prev + 1)
-    setSelectedColor(userSelectedColor)
-    setClickCounter(clickCounter + 1)
-  }
-
-  const isActive = (index: PatternNumbers) => {
-    return activeIndex === index ? styles.active : ''
-  }
+ */
+  const {disabledButtons, loseGame, isPlaying, startGame, restartGame, getPattern, selectColor, isActive } = usePattern()
 
   return(
     <article className={styles.container}>
@@ -116,12 +39,18 @@ export default function Simon() {
         className={`${styles.lightButton} ${isActive(4)} rounded-ee-full bg-green-600`}
       ></button>
     </div>
-    <button className={styles.startButton} onClick={() => startGame()}>
     {loseGame
-      ? <p className={styles.startText}>RESTART</p>
-      : <p className={styles.startText}>{!isPlaying && "START!"}</p>
+      ? <button className={`${styles.startButton} ${loseGame && styles.loseButton}`} onClick={() => restartGame()}>
+          <div className={styles.shadowBorder}>
+            <p className={styles.startText}>RESTART</p>
+          </div>
+        </button>
+      : <button className={`${styles.startButton} ${loseGame && styles.loseButton}`} onClick={() => startGame()}>
+          <div className={styles.shadowBorder}>
+            <p className={styles.startText}>{!isPlaying && "START!"}</p>
+          </div>
+        </button>
     }
-    </button>
   </article>
   )
 }
