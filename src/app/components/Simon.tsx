@@ -26,16 +26,6 @@ export default function Simon() {
     }, 1000);
   }, [pattern])
 
-  useEffect(() => {
-    if(loseGame) {
-      alert("perdiste")
-      setPattern([])
-      getPattern()
-      setLengthAnswer(0)
-      setLoseGame(false)
-    }
-  }, [loseGame])
-
   const getPattern = () => {
     const nextStep = generateNextStep()
     setPattern([...pattern, nextStep])
@@ -47,13 +37,20 @@ export default function Simon() {
   }
 
   const startGame = () => {
-    setIsPlaying(true)
-    setDisableButtons(true)
-    playPattern()
+    if(loseGame) {
+      setLoseGame(false)
+      setIsPlaying(false)
+    } else {
+      setIsPlaying(true)
+      setDisableButtons(true)
+      setTimeout(() => {
+        playPattern()
+      }, 700)
+    }
   }
 
   const playPattern = (index = 0) => {
-    if(index < pattern.length) {
+    if(index < pattern.length && loseGame === false) {
       setActiveIndex(pattern[index])
       setTimeout(() => {
         setActiveIndex(null)
@@ -76,9 +73,12 @@ export default function Simon() {
       if(selectedColor !== pattern[lengthAnswer - 1]) {
         setLoseGame(true)
         setIsPlaying(false)
+        setLengthAnswer(0)
+        return;
+      } else {
+        setLengthAnswer(0)
+        getPattern()
       }
-      setLengthAnswer(0)
-      getPattern()
     }
   }, [clickCounter])
 
@@ -117,7 +117,10 @@ export default function Simon() {
       ></button>
     </div>
     <button className={styles.startButton} onClick={() => startGame()}>
-      <p className={styles.startText}>START!</p>
+    {loseGame
+      ? <p className={styles.startText}>RESTART</p>
+      : <p className={styles.startText}>{!isPlaying && "START!"}</p>
+    }
     </button>
   </article>
   )
