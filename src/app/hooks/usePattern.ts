@@ -11,9 +11,11 @@ export default function usePattern() {
   const [lengthAnswer, setLengthAnswer] = useState<number>(0)
   const [selectedColor, setSelectedColor] = useState<PatternNumbers>()
   const [clickCounter, setClickCounter] = useState<number>(0)
-  const [disabledButtons, setDisableButtons] = useState<boolean>(false)
   const [loseGame, setLoseGame] = useState<boolean>(false)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
+  
+  const [disableButtons, setDisableButtons] = useState<boolean>(true)
+  const [disableStart, setDisableStart] = useState<boolean>(false)
   
   useEffect(() => {
     getPattern()
@@ -37,8 +39,9 @@ export default function usePattern() {
   }
 
   const startGame = () => {
+    setDisableButtons(false)
+    setDisableStart(true)
     setIsPlaying(true)
-    setDisableButtons(true)
     setTimeout(() => {
       playPattern()
     }, 700)
@@ -61,24 +64,26 @@ export default function usePattern() {
         }, 500)
       }, 500);
     }
-    setDisableButtons(false)
+  }
+
+  const handleLoseGame = () => {
+    setPattern([])
+    setLoseGame(true)
+    setIsPlaying(false)
+    setLengthAnswer(0)
+    setDisableButtons(true)
+    setDisableStart(false)
   }
 
   useEffect(() => {
     if(selectColor === undefined) return
     if(lengthAnswer < pattern.length) {
       if(selectedColor !== pattern[lengthAnswer - 1]) {
-        setPattern([])
-        setLoseGame(true)
-        setIsPlaying(false)
-        setLengthAnswer(0)
+        handleLoseGame()
       }
     } else {
       if(selectedColor !== pattern[lengthAnswer - 1]) {
-        setPattern([])
-        setLoseGame(true)
-        setIsPlaying(false)
-        setLengthAnswer(0)
+        handleLoseGame()
       } else {
         setLengthAnswer(0)
         getPattern()
@@ -96,5 +101,5 @@ export default function usePattern() {
     return activeIndex === index ? styles.active : ''
   }
 
-  return {disabledButtons, loseGame, isPlaying, startGame, restartGame, getPattern, selectColor, isActive } as const
+  return {loseGame, isPlaying, disableButtons, disableStart, startGame, restartGame, selectColor, isActive } as const
 }
