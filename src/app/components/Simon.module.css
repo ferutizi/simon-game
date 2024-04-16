@@ -1,5 +1,9 @@
 .container {
   position: relative;
+  border: 0.75rem solid rgb(3, 7, 18);
+  border-radius: 100%;
+  box-sizing: content-box;
+  box-shadow: -0.25rem 0.4rem 1.125rem 0.5rem rgba(0, 0, 0, 0.65);
 }
 
 .lightButton {
