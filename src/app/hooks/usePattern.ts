@@ -19,9 +19,11 @@ export default function usePattern() {
   const [disableStart, setDisableStart] = useState<boolean>(false)
 
   const [recordScore, setRecordStore] = useState<string>(() => {
-    const item = window.localStorage.getItem('record-score')
-    const record = item ? item.toString() : '0'
-    return record
+    if(typeof window !== 'undefined') {
+      const item = window.localStorage.getItem('record-score')
+      const record = item ? item.toString() : '0'
+      return record
+    } else return "0"
   })
   
   useEffect(() => {
@@ -76,10 +78,12 @@ export default function usePattern() {
   }
 
   const setLocalStorage = (recordScore: number) => {
-    const actualRecord = Number(window.localStorage.getItem('record-score'))
-    if(recordScore > actualRecord) {
-      window.localStorage.setItem("record-score", recordScore.toString())
-      setRecordStore(recordScore.toString())
+    if(typeof window !== 'undefined') {
+      const actualRecord = Number(window.localStorage.getItem('record-score'))
+      if(recordScore > actualRecord) {
+        window.localStorage.setItem("record-score", recordScore.toString())
+        setRecordStore(recordScore.toString())
+      }
     }
   }
 

@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import styles from './Score.module.css'
 
 interface ScoreProps {

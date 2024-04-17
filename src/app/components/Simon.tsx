@@ -1,10 +1,13 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import usePattern from '../hooks/usePattern'
 import Score from './Score'
 import styles from './Simon.module.css'
 
 export default function Simon() {
+  const [isLoad, setIsLoad] = useState(false)
+
   const {
     loseGame,
     isPlaying,
@@ -17,6 +20,12 @@ export default function Simon() {
     selectColor,
     isActive
   } = usePattern()
+
+  useEffect(() => {
+    setIsLoad(true)
+  }, [])
+
+  if(!isLoad) return null
 
   return(
     <>
