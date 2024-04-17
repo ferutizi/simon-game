@@ -13,6 +13,7 @@ export default function usePattern() {
   const [clickCounter, setClickCounter] = useState<number>(0)
   const [loseGame, setLoseGame] = useState<boolean>(false)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
+  const [score, setScore] = useState<number>(0)
   
   const [disableButtons, setDisableButtons] = useState<boolean>(true)
   const [disableStart, setDisableStart] = useState<boolean>(false)
@@ -31,6 +32,7 @@ export default function usePattern() {
   const getPattern = () => {
     const nextStep = generateNextStep()
     setPattern([...pattern, nextStep])
+    if(isPlaying) setScore((prevScore) => prevScore + 1)
   }
 
   const generateNextStep = () => {
@@ -52,6 +54,7 @@ export default function usePattern() {
     setIsPlaying(false)
     const nextStep = generateNextStep()
     setPattern([nextStep])
+    setScore(0)
   }
 
   const playPattern = (index = 0) => {
@@ -89,6 +92,7 @@ export default function usePattern() {
         getPattern()
       }
     }
+    console.log(score)
   }, [clickCounter])
 
   const selectColor = (userSelectedColor: PatternNumbers) => {
@@ -101,5 +105,5 @@ export default function usePattern() {
     return activeIndex === index ? styles.active : ''
   }
 
-  return {loseGame, isPlaying, disableButtons, disableStart, startGame, restartGame, selectColor, isActive } as const
+  return {loseGame, isPlaying, disableButtons, disableStart, score, startGame, restartGame, selectColor, isActive } as const
 }
