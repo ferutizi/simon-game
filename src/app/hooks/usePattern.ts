@@ -107,7 +107,6 @@ export default function usePattern() {
         getPattern()
       }
     }
-    console.log(score)
   }, [clickCounter])
 
   const selectColor = (userSelectedColor: PatternNumbers) => {
