@@ -79,6 +79,7 @@ export default function usePattern() {
     const actualRecord = Number(window.localStorage.getItem('record-score'))
     if(recordScore > actualRecord) {
       window.localStorage.setItem("record-score", recordScore.toString())
+      setRecordStore(recordScore.toString())
     }
   }
 
