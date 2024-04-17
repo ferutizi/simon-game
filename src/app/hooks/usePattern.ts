@@ -52,7 +52,7 @@ export default function usePattern() {
     setIsPlaying(true)
     setTimeout(() => {
       playPattern()
-    }, 700)
+    }, 400)
   }
 
   const restartGame = () => {
@@ -70,8 +70,8 @@ export default function usePattern() {
         setActiveIndex(null)
         setTimeout(() => {
           playPattern(index + 1)
-        }, 500)
-      }, 500);
+        }, 400)
+      }, 400);
     }
   }
 
