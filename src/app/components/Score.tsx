@@ -5,9 +5,10 @@ import styles from './Score.module.css'
 
 interface ScoreProps {
   score: number
+  recordScore: string
 }
 
-export default function Score({score}: ScoreProps) {  
+export default function Score({score, recordScore}: ScoreProps) {  
   return(
     <div className={styles.container}>
       <div className={styles.text}>
@@ -16,7 +17,7 @@ export default function Score({score}: ScoreProps) {
       </div>
       <div className={styles.text}>
         <p>Record:</p>
-        <p>50</p>
+        <p>{recordScore}</p>
       </div>
     </div>
   )

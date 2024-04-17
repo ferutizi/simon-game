@@ -11,6 +11,7 @@ export default function Simon() {
     disableButtons,
     disableStart,
     score,
+    recordScore,
     startGame,
     restartGame,
     selectColor,
@@ -19,7 +20,7 @@ export default function Simon() {
 
   return(
     <>
-      <Score score={score} />
+      <Score score={score} recordScore={recordScore} />
       <article className={styles.container}>
         <div className="grid grid-cols-2 rounded-full">
           <button

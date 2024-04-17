@@ -17,6 +17,12 @@ export default function usePattern() {
   
   const [disableButtons, setDisableButtons] = useState<boolean>(true)
   const [disableStart, setDisableStart] = useState<boolean>(false)
+
+  const [recordScore, setRecordStore] = useState<string>(() => {
+    const item = window.localStorage.getItem('record-score')
+    const record = item ? item.toString() : '0'
+    return record
+  })
   
   useEffect(() => {
     getPattern()
@@ -69,7 +75,15 @@ export default function usePattern() {
     }
   }
 
+  const setLocalStorage = (recordScore: number) => {
+    const actualRecord = Number(window.localStorage.getItem('record-score'))
+    if(recordScore > actualRecord) {
+      window.localStorage.setItem("record-score", recordScore.toString())
+    }
+  }
+
   const handleLoseGame = () => {
+    setLocalStorage(score)
     setPattern([])
     setLoseGame(true)
     setIsPlaying(false)
@@ -105,5 +119,5 @@ export default function usePattern() {
     return activeIndex === index ? styles.active : ''
   }
 
-  return {loseGame, isPlaying, disableButtons, disableStart, score, startGame, restartGame, selectColor, isActive } as const
+  return {loseGame, isPlaying, disableButtons, disableStart, score, recordScore, startGame, restartGame, selectColor, isActive } as const
 }
