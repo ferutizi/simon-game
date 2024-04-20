@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react"
 import styles from '../components/Simon.module.css'
+import { usePlaySound } from "./usePlaySound"
 
-type PatternNumbers = 1 | 2 | 3 | 4
+export type PatternNumbers = 1 | 2 | 3 | 4
 
 export default function usePattern() {
   const [pattern, setPattern] = useState<PatternNumbers[]>([])
@@ -25,6 +26,8 @@ export default function usePattern() {
       return record
     } else return "0"
   })
+
+  const [playSound] = usePlaySound()
   
   useEffect(() => {
     getPattern()
@@ -68,6 +71,7 @@ export default function usePattern() {
   const playPattern = (index = 0) => {
     if(index < pattern.length && loseGame === false) {
       setActiveIndex(pattern[index])
+      playSound(pattern[index])
       setTimeout(() => {
         setActiveIndex(null)
         setTimeout(() => {

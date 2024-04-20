@@ -1,9 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import usePattern from '../hooks/usePattern'
+import usePattern, { PatternNumbers } from '../hooks/usePattern'
 import Score from './Score'
 import styles from './Simon.module.css'
+import { usePlaySound } from '../hooks/usePlaySound'
 
 export default function Simon() {
   const [isLoad, setIsLoad] = useState(false)
@@ -21,9 +22,16 @@ export default function Simon() {
     isActive
   } = usePattern()
 
+  const [playSound] = usePlaySound()
+
   useEffect(() => {
     setIsLoad(true)
   }, [])
+
+  const handleclick = (colorId: PatternNumbers) => {
+    selectColor(colorId)
+    playSound(colorId)    
+  }
 
   if(!isLoad) return null
 
@@ -34,22 +42,22 @@ export default function Simon() {
         <div className="grid grid-cols-2 rounded-full">
           <button
             disabled={disableButtons}
-            onClick={() => selectColor(1)}
+            onClick={() => handleclick(1)}
             className={`${styles.lightButton} ${isActive(1)} rounded-ss-full bg-red-600`}
           ></button>
           <button
             disabled={disableButtons}
-            onClick={() => selectColor(2)}
+            onClick={() => handleclick(2)}
             className={`${styles.lightButton} ${isActive(2)} rounded-se-full bg-blue-600`}
           ></button>
           <button
             disabled={disableButtons}
-            onClick={() => selectColor(3)}
+            onClick={() => handleclick(3)}
             className={`${styles.lightButton} ${isActive(3)} rounded-es-full bg-yellow-400`}
           ></button>
           <button
             disabled={disableButtons}
-            onClick={() => selectColor(4)}
+            onClick={() => handleclick(4)}
             className={`${styles.lightButton} ${isActive(4)} rounded-ee-full bg-green-600`}
           ></button>
         </div>
